@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171512">
+  <meta name="description" content="Cactus TV: películas, series y TV en vivo con perfiles y reproducción continua.">
+  <title>Cactus TV · 0.5.1</title>
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="tv-navigation.css">
+  <link rel="stylesheet" href="fluidity.css">
+  <link rel="stylesheet" href="detail-view.css">
+  <link rel="stylesheet" href="cactus-auto-updates.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar" data-nav-row="header">
+      <div class="brand"><img src="logo.svg" alt="" width="44" height="44"><span>CACTUS <b>TV</b><small>TU UNIVERSO, EN PANTALLA</small></span></div>
+      <nav class="tabs" id="tabs" aria-label="Secciones">
+        <button type="button" class="tab active" data-section="all" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8M5 10v11h5v-6h4v6h5V10"/></svg><span>Inicio</span></button>
+        <button type="button" class="tab" data-section="movie"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 9 18-4M6 3l3 5m4-7 3 5"/></svg><span>Películas</span></button>
+        <button type="button" class="tab" data-section="series"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="m8 2 4 5 4-5M7 12h10m-10 4h6"/></svg><span>Series</span></button>
+        <button type="button" class="tab" data-section="anime"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 3 8 4 8-4-2 14-6 4-6-4L4 3Zm3 8 3 2m7-2-3 2"/></svg><span>Anime</span></button>
+        <button type="button" class="tab" data-section="live"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4a11 11 0 0 0 0 16m14-16a11 11 0 0 1 0 16M8 7a7 7 0 0 0 0 10m8-10a7 7 0 0 1 0 10"/><circle cx="12" cy="12" r="2"/></svg><span>TV en vivo</span></button>
+        <button type="button" class="tab" data-section="favorites"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v19l-6-5-6 5V3Z"/></svg><span>Mi lista</span></button>
+        <button type="button" class="tab cactus-adult-tab" id="cactus-adult-tab" aria-label="Adultos, acceso protegido con PIN" hidden>🔒 Adultos</button>
+        <button type="button" class="tab cactus-more-tab" id="cactus-more-toggle" aria-haspopup="dialog" aria-controls="cactus-more-panel" aria-expanded="false">Más <span aria-hidden="true">⌄</span></button>
+      </nav>
+      <button id="search-open" class="header-icon" type="button" aria-label="Buscar" title="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg></button><button id="settings-open" class="header-icon" type="button" aria-label="Configuración" title="Configuración"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 2-1 3-3 1-3-1-2 4 2 2v3l-2 2 2 4 3-1 3 1 1 3h4l1-3 3-1 3 1 2-4-2-2v-3l2-2-2-4-3 1-3-1-1-3Z"/><circle cx="12" cy="12" r="3"/></svg></button><button id="profiles-open" class="profile-button" type="button"><span id="active-profile-avatar" class="profile-mini" aria-hidden="true">P</span><span id="active-profile-name">Principal</span><span aria-hidden="true">⌄</span></button>
+    </header>
+    <main>
+      <section id="home-reel" class="hero hero-reel" aria-labelledby="hero-title" data-nav-row="hero" hidden>
+        <img id="reel-image" class="reel-image" alt="">
+        <div class="reel-shade"></div><div class="reel-copy"><span class="eyebrow">SELECCIÓN CACTUS</span><h1 id="hero-title"></h1><p id="reel-meta"></p><p id="reel-description"></p><div class="reel-actions"><button id="reel-play" class="primary" type="button">▶ Reproducir</button><button id="reel-details" class="secondary" type="button">Más información</button></div></div>
+        <div class="reel-navigation"><button id="reel-previous" class="icon-control" type="button" aria-label="Recomendación anterior">‹</button><span id="reel-page"></span><button id="reel-next" class="icon-control" type="button" aria-label="Recomendación siguiente">›</button></div>
+      </section>
+      <section class="content" aria-labelledby="list-title">
+        <div class="section-bar"><div><span class="eyebrow">EXPLORA A TU MANERA</span><h2 id="list-title">Explorar categorías</h2></div><div class="search"><span>Buscar</span><button type="button" id="search-focus" class="search-activation" aria-label="Buscar películas o series, pulsa OK para escribir">Buscar películas o series...</button><input type="search" id="search" placeholder="Buscar películas o series..." autocomplete="off" tabindex="-1" hidden></div></div>
+        <p id="catalog-state" class="catalog-state" role="status">Catálogo local de demostración</p>
+        <section id="continue-section" class="continue-section" aria-labelledby="continue-title" hidden><h2 id="continue-title">Continuar viendo</h2><div id="continue-catalog" class="catalog" data-nav-row="continue" data-nav-carousel="true"></div></section>
+        <div id="source-filters" class="source-filters" data-nav-row="filters" hidden><div id="source-root-label"><button id="source-root-toggle" class="filter-toggle" type="button" aria-haspopup="dialog">Colecciones <span aria-hidden="true">⌄</span></button><select id="source-root" aria-label="Colección del catálogo" hidden tabindex="-1"></select></div><div><button id="source-category-toggle" class="filter-toggle" type="button" aria-haspopup="dialog">Categorías <span aria-hidden="true">⌄</span></button><select id="source-category" aria-label="Categoría del catálogo" hidden tabindex="-1"></select></div></div>
+        <nav id="live-categories" class="live-categories" aria-label="Categorías de TV en vivo" hidden><button type="button" class="secondary" data-live-group="all" aria-pressed="true">Todos</button><button type="button" class="secondary" data-live-group="available" aria-pressed="false">Disponibles</button><button type="button" class="secondary" data-live-group="espn" aria-pressed="false">ESPN</button><button type="button" class="secondary" data-live-group="dsports" aria-pressed="false">DSports</button><button type="button" class="secondary" data-live-group="other" aria-pressed="false">Otros deportes</button></nav>
+        <section id="live-workspace" class="live-layout" aria-label="TV en vivo" hidden>
+          <aside class="live-category-panel"><h3>Categorías</h3><div id="live-category-list" class="live-category-list"></div></aside>
+          <section class="live-center"><div id="live-preview-mount" class="live-preview-mount"><div id="live-preview-viewport" class="live-preview-viewport" aria-hidden="true"></div><div id="live-preview-placeholder" class="live-preview-placeholder"><span>CACTUS TV</span><p>Elige un canal para verlo aquí.</p></div></div><div class="live-preview-info"><div><span class="eyebrow">EN DIRECTO</span><h3 id="live-preview-title">TV en vivo</h3><p id="live-preview-state" role="status">Selecciona una categoría.</p></div><button id="live-expand" class="secondary" type="button">⛶ Pantalla completa</button><button id="live-adjust" class="secondary" type="button" aria-expanded="false" hidden>Ajustar vista</button></div><p class="live-remote-hint">← Categorías · ↑ ↓ Canales · OK Pantalla completa</p></section>
+          <aside class="live-channel-panel"><div class="live-channel-heading"><h3 id="live-channel-heading">Canales</h3><span id="live-channel-count"></span></div><div id="live-channel-list" class="live-channel-list"></div><button id="live-more" class="secondary" type="button" hidden>Más canales</button></aside>
+        </section>
+        <button id="browse-back" class="secondary browse-back" type="button" hidden>← Volver a las categorías</button><div id="browse-shelves" class="browse-shelves" hidden></div><button id="browse-more" class="secondary browse-more" type="button" hidden>Más categorías</button><div id="catalog" class="catalog" aria-live="polite"></div>
+        <div id="pagination" class="pagination" hidden><button id="previous-page" class="primary" type="button" disabled>Anterior</button><span id="page-status" role="status">Página 1</span><button id="next-page" class="primary" type="button" disabled>Siguiente</button></div>
+        <p class="disclaimer">La API TMDB proporciona únicamente fichas informativas, no películas o canales. Toda reproducción permanece deshabilitada salvo para medios que tengan autorización comprobada.</p>
+      </section>
+    </main>
+    <footer><span>Cactus TV Original</span><span id="footer-note">Beta 0.5.1</span></footer>
+  </div>
+  <div id="profiles-panel" class="overlay profiles-overlay" role="dialog" aria-modal="true" aria-labelledby="profiles-title" hidden>
+    <section class="profiles-card"><div class="eyebrow">TU ESPACIO EN CACTUS TV</div><h2 id="profiles-title">¿Quién está viendo?</h2><p>Elige tu perfil. Cada persona conserva su propia lista en este dispositivo.</p>
+      <div id="profile-cards" class="profile-cards"></div>
+      <div class="profile-actions"><button id="profile-create" class="primary" type="button">Añadir perfil</button><button id="profile-rename" class="secondary" type="button">Editar nombre</button><button id="profile-delete" class="secondary" type="button">Eliminar perfil</button><button id="profiles-close" class="secondary" type="button">Volver</button></div>
+      <form id="profile-form" hidden><h3 id="profile-form-title">Crear perfil</h3><label for="profile-name">Nombre del perfil</label><input id="profile-name" type="text" maxlength="24" autocomplete="off"><button class="primary" type="submit">Guardar</button><button id="profile-cancel" class="secondary" type="button">Cancelar</button></form>
+      <div id="profile-confirm" hidden><p id="profile-confirm-text"></p><button id="profile-delete-confirm" class="primary" type="button">Eliminar este perfil</button><button id="profile-delete-cancel" class="secondary" type="button">Cancelar</button></div>
+      <p id="profile-message" class="profile-message" role="status"></p>
+    </section>
+  </div>
+  <div id="source-picker" class="overlay" role="dialog" aria-modal="true" aria-labelledby="source-picker-title" hidden><section class="source-picker-card"><button id="source-picker-close" type="button" class="close" aria-label="Cerrar categorías">✕</button><span class="eyebrow">ELIGE QUÉ VER</span><h2 id="source-picker-title">Categorías</h2><div id="source-picker-options" class="source-picker-options"></div></section></div>
+  <section id="settings-panel" class="settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden><div class="settings-header"><div><span class="eyebrow">CACTUS TV</span><h2 id="settings-title">Configuración</h2></div><button id="settings-close" class="icon-control" type="button" aria-label="Cerrar configuración">✕</button></div><div class="settings-layout"><nav id="settings-tabs" class="settings-tabs" aria-label="Ajustes"><button type="button" data-settings-tab="playback" aria-pressed="true">Reproducción</button><button type="button" data-settings-tab="subtitles" aria-pressed="false">Subtítulos</button><button type="button" data-settings-tab="privacy" aria-pressed="false">Privacidad</button><button type="button" data-settings-tab="about" aria-pressed="false">Acerca de Cactus TV</button></nav><div class="settings-content"><div id="settings-fields"></div><div id="settings-subtitle-preview" class="settings-subtitle-preview" hidden><span id="settings-subtitle-sample">Así se verán tus subtítulos.</span></div><div id="settings-privacy" hidden><h3>Tus perfiles y tu privacidad</h3><p>Mi lista y el avance se guardan por perfil en este televisor. No necesitas una cuenta para ver contenido.</p><button id="settings-clear-history" class="secondary" type="button">Borrar Continuar viendo de este perfil</button></div><div id="settings-about" hidden><h3>Cactus TV · Beta 0.5.1 · Revisión Samsung</h3><p id="settings-device"></p><p id="settings-last-error"></p><p id="settings-video-support"></p><p>Catálogo y reproducción mediante acceso autorizado del operador. Perfiles, interfaz y controles: Cactus TV Original.</p><img class="tmdb-credit-logo" src="tmdb-logo.svg" alt="TMDB"><p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p><button id="credits" type="button" class="secondary">Licencias y atribuciones</button><div class="cactus-images-debug"><button id="cactus-posters-diagnose" type="button" class="secondary">Diagnosticar carátulas</button><pre id="cactus-posters-report" aria-live="polite">Abre Búsqueda o Kids y pulsa este botón para comparar el póster y su fondo horizontal.</pre></div></div></div></div><div id="settings-choice" class="settings-choice" role="dialog" aria-modal="true" aria-labelledby="settings-choice-title" hidden><section><h3 id="settings-choice-title"></h3><div id="settings-choice-options"></div><button id="settings-choice-close" class="secondary" type="button">Volver</button></section></div></section>
+  <div id="modal" class="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="details-dialog"><button id="close-modal" type="button" class="close" aria-label="Cerrar ficha" data-nav-row="detail-close">✕</button><section class="modal-card details-card">
+      <header class="details-hero"><img id="detail-backdrop" class="detail-backdrop" alt=""><div class="detail-shade"></div><div class="detail-hero-copy"><span class="eyebrow" id="modal-tag"></span><h2 id="modal-title"></h2><div id="modal-meta" class="detail-meta"></div><div class="detail-actions" data-nav-row="detail-actions"><button type="button" id="play" class="primary" disabled>Reproducir</button><button type="button" id="favorite" class="secondary">☆ Mi lista</button></div></div></header>
+      <div class="details-body"><div class="detail-main"><p id="modal-description"></p><p id="detail-status" class="detail-status" role="status"></p><div id="detail-preplay" class="detail-preplay"><span class="eyebrow">ANTES DE REPRODUCIR</span><div class="detail-pref-row" data-nav-row="detail-preferences"><div><span>Audio</span><button type="button" id="detail-audio" class="secondary" aria-haspopup="dialog">Predeterminado del vídeo</button></div><div><span>Subtítulos</span><button type="button" id="detail-subtitle" class="secondary" aria-haspopup="dialog">Desactivados</button></div></div></div><a id="modal-attribution" target="_blank" rel="noopener noreferrer" hidden>Ficha en TMDB</a><p id="rights-label" class="rights" hidden></p></div><dl id="detail-facts" class="detail-facts"></dl></div>
+      <section id="detail-episodes" class="detail-episodes" hidden><div class="detail-episode-heading" data-nav-row="detail-season"><div><h3>Episodios</h3><p id="detail-episode-count"></p></div><button id="detail-season" type="button" class="secondary" aria-haspopup="dialog">Temporada 1 ⌄</button></div><div id="detail-episode-grid" class="detail-episode-grid"></div><button id="detail-episodes-more" class="secondary" type="button" hidden>Más episodios</button></section>
+    </section><section id="detail-choice" class="detail-choice" role="dialog" aria-modal="true" aria-labelledby="detail-choice-title" hidden><div><h3 id="detail-choice-title"></h3><div id="detail-choice-options"></div><button id="detail-choice-close" class="secondary" type="button">Volver</button></div></section></div>
+  </div>
+  <div id="player" class="overlay" role="dialog" aria-modal="true" aria-label="Reproductor" hidden>
+    <section class="player-panel"><button id="close-player" type="button" class="close" aria-label="Cerrar reproductor">✕</button>
+      <h3 id="player-title"></h3><div id="video-stage"><video id="video" playsinline preload="none"></video><object id="native-video" type="application/avplayer" hidden></object><div id="external-subtitles" class="external-subtitles" aria-live="off" hidden></div></div>
+      <div class="playback-toolbar"><div class="playback-topline"><span id="playback-time">0:00 / 0:00</span><button id="toggle-video" class="icon-control play-control" type="button" aria-label="Pausar" title="Pausar"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="play-symbol" d="M7 4v16l13-8L7 4Z" style="display:none"/><g class="pause-symbol"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></g></svg></button></div>
+        <div id="vod-controls" hidden><label for="playback-progress" class="visually-hidden">Posición de reproducción</label><input id="playback-progress" type="range" min="0" max="100" value="0" step="10"><div class="playback-buttons"><button id="rewind-video" class="icon-control" type="button" aria-label="Retroceder diez segundos" title="Retroceder diez segundos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 6 4 12l7 6V6Z M21 6l-7 6 7 6V6Z"/></svg></button><button id="restart-video" class="icon-control" type="button" aria-label="Reproducir desde el inicio" title="Reproducir desde el inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></svg></button><button id="forward-video" class="icon-control" type="button" aria-label="Adelantar diez segundos" title="Adelantar diez segundos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 7 6-7 6V6Z m10 0 7 6-7 6V6Z"/></svg></button></div></div>
+        <div class="playback-buttons"><button id="previous-episode" class="icon-control" type="button" aria-label="Capítulo anterior" title="Capítulo anterior" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2v14H4z M19 5 8 12l11 7V5Z"/></svg></button><button id="next-episode" class="icon-control" type="button" aria-label="Capítulo siguiente" title="Capítulo siguiente" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5h2v14h-2z M5 5l11 7-11 7V5Z"/></svg></button><span id="audio-control" hidden><button id="audio-track-open" class="secondary" type="button" aria-haspopup="dialog">Audio</button><select id="audio-track" aria-label="Idioma de audio" hidden tabindex="-1"></select></span><span id="subtitle-control" hidden><button id="subtitle-track-open" class="secondary" type="button" aria-haspopup="dialog">Subtítulos</button><select id="subtitle-track" aria-label="Subtítulos" hidden tabindex="-1"></select></span><button id="player-settings" class="icon-control" type="button" aria-label="Configuración de reproducción" title="Configuración">⚙</button></div><p id="tracks-note" class="tracks-note">Esta fuente no ofrece pistas adicionales de audio o subtítulos.</p>
+      </div><p id="player-status" role="status">Reproductor de medios autorizados</p>
+    </section>
+    <section id="track-picker" class="track-picker" role="dialog" aria-modal="true" aria-labelledby="track-picker-title" hidden><div class="track-picker-card"><h3 id="track-picker-title">Audio</h3><div id="track-picker-options"></div><button id="track-picker-close" type="button" class="secondary">Volver</button></div></section>
+  </div>
+  <dialog id="credits-dialog" class="credits-dialog" aria-labelledby="credits-heading">
+    <h2 id="credits-heading">Cactus TV · Beta 0.5.1 · Revisión Samsung</h2><p>Cactus TV Original · Películas, series y televisión en vivo. Perfiles, Mi lista y progreso guardados en este televisor.</p>
+    <p>Las recomendaciones de Inicio se ordenan por la puntuación del catálogo. TMDB es una integración opcional de metadatos; no proporciona los vídeos.</p>
+    <img class="tmdb-credit-logo" src="tmdb-logo.svg" alt="The Movie Database (TMDB)">
+    <p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+    <p class="credit-license">Logotipo TMDB: Travis Bell, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>, sin modificaciones.</p>
+    <p><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">TMDB — The Movie Database</a></p>
+    <p class="credit-license">Reproductor: <a href="vendor/HLS-LICENSE.txt">hls.js · Apache 2.0</a>. Transporte: <a href="vendor/CRYPTOJS-LICENSE.txt">CryptoJS · MIT</a>. <a href="vendor/PROMISE-LICENSE.txt">ES6 Promise · MIT</a>.</p>
+    <button id="credits-demo" type="button" class="secondary">Probar el reproductor con un clip propio</button>
+    <button id="credits-close" type="button" class="primary">Cerrar</button>
+  </dialog>
+
+  <div id="cactus-align-target" hidden aria-hidden="true"></div>
+  <div id="cactus-align-panel" hidden role="status"><strong>Ajustar vista previa</strong><p>Las flechas mueven el vídeo. El borde punteado indica dónde debe quedar.</p><p>OK: alternar <b id="cactus-align-mode">Mover imagen</b> / Cambiar tamaño.</p><p>0: restaurar · Atrás: guardar y cerrar.</p><p id="cactus-align-value"></p></div>
+  <section id="cactus-more-panel" class="cactus-more-panel" role="dialog" aria-modal="true" aria-label="Más colecciones" hidden>
+    <div class="cactus-more-content">
+      <div class="cactus-more-heading"><strong>Más en Cactus TV</strong><button type="button" id="cactus-more-close" aria-label="Cerrar más colecciones">✕</button></div>
+      <button type="button" class="cactus-more-choice" data-cactus-collection="76783" data-cactus-name="Kids">Kids <small>Películas y series para toda la familia</small></button>
+      <button type="button" class="cactus-more-choice" data-cactus-collection="76784" data-cactus-name="Explorar">Explorar <small>Descubre otras colecciones</small></button>
+      <button type="button" class="cactus-more-choice" data-cactus-collection="76301" data-cactus-name="Tendencias">Tendencias <small>Títulos destacados por puntuación</small></button>
+    </div>
+  </section>
+  <script src="runtime-config.js"></script>
+  <script src="transport.js"></script>
+  <script src="catalog.js"></script>
+  <script src="vendor/es6-promise.auto.min.js"></script>
+  <script src="direct-compat.js"></script>
+  <script src="vendor/crypto-js.js"></script>
+  <script src="xuper/config.js"></script>
+  <script src="xuper/crypto3des.js"></script>
+  <script src="xuper/api.js"></script>
+  <script src="xuper/device.js"></script>
+  <script src="xuper/session.js"></script>
+  <script src="xuper/catalog.js"></script>
+  <script src="xuper/live.js"></script>
+  <script src="xuper/sign_o3.js"></script>
+  <script src="xuper/stream.js"></script>
+  <script src="vendor/hls.min.js"></script>
+  <script src="xuper/buffer.js"></script>
+  <script src="xuper/fmp4.js"></script>
+  <script src="api-client.js"></script>
+  <script src="background-client.js"></script>
+  <script src="cactus-search-artwork.js"></script>
+  <script src="direct-api.js"></script>
+  <script src="direct-catalog-sync.js"></script>
+  <script src="poster-scheduler.js"></script>
+  <script src="cactus-poster-diagnostics.js"></script>
+  <script src="profiles.js"></script>
+  <script src="playback-support.js"></script>
+  <script src="cactus-adult-pin.js"></script>
+  <script src="settings.js"></script>
+  <script src="favorites.js"></script>
+  <script src="live-catalog.js"></script>
+  <script src="own-demo.js"></script>
+  <script src="providers.js"></script>
+  <script src="navigation.js"></script>
+  <script src="catalog-refresh.js"></script>
+  <script src="watch-history.js"></script>
+  <script src="profile-ui.js"></script>
+  <script src="audio-continuity.js"></script>
+  <script src="direct-media.js"></script>
+  <script src="media-engine.js"></script>
+  <script src="subtitle-renderer.js"></script>
+  <script src="playback-controls.js"></script>
+  <script src="cactus-web-sports.js"></script>
+  <script src="cactus-sports-connect.js"></script>
+  <script src="cactus-wepa.js"></script>
+  <script src="live-view.js"></script>
+  <script src="cactus-preview-calibration.js"></script>
+  <script src="player-chrome.js"></script>
+  <script src="track-picker.js"></script>
+  <script src="home-reel.js"></script>
+  <script src="browse-shelves.js"></script>
+  <script src="details-view.js"></script>
+  <script src="main.js"></script>
+  <script src="cactus-auto-updates.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        id="https://cactus.invalid/samsung-optimized-test"
+        version="0.5.1" viewmodes="fullscreen">
+  <name>Cactus TV Optimizada 0.5.1</name>
+  <description xml:lang="es">Cactus TV beta: catálogo autorizado, perfiles y reproducción para Samsung.</description>
+  <content src="index.html"/>
+  <icon src="icon.png"/>
+  <tizen:application id="CactOpt501.CactusOptimizada" package="CactOpt501" required_version="6.5"/>
+  <access origin="*" subdomains="true"/>
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:profile name="tv-samsung"/>
+</widget>

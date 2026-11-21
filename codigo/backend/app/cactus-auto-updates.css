@@ -1,0 +1,8 @@
+/* Cactus TV: panel de información de actualizaciones integrado en Acerca de. */
+.cactus-update-panel{border:1px solid rgba(217,166,109,.5);border-radius:16px;padding:16px 18px;margin:20px 0 6px;background:rgba(85,55,33,.25);color:#f4e7d0;}
+.cactus-update-title{font-size:22px;line-height:1.25;color:#f4cf98;margin:0 0 12px;}
+.cactus-update-status{font-size:17px;line-height:1.45;margin:0 0 14px;overflow-wrap:break-word;}
+.cactus-update-panel button{font-size:17px!important;min-height:48px!important;margin-right:10px;margin-bottom:9px;padding:10px 17px!important;border-radius:12px!important;}
+.cactus-update-panel button:focus{outline:3px solid #ffe0aa!important;outline-offset:2px;}
+.cactus-update-hint{font-size:14px;line-height:1.4;opacity:.85;margin:10px 0 0;}
+@media(max-width:750px){.cactus-update-title{font-size:19px}.cactus-update-status{font-size:15px}.cactus-update-panel button{font-size:15px!important}}

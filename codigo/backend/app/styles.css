@@ -1,0 +1,361 @@
+/* Diseño propio de Cactus TV Original, sin frameworks ni recursos externos. */
+*{box-sizing:border-box}
+html{font-family:Arial,Helvetica,sans-serif;color:#f8f1e7;background:#171512;scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 65% -15%,#69452d 0%,#292019 38%,#161512 82%)}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #ffd39b;outline-offset:4px}
+.shell{max-width:1750px;margin:0 auto;padding:0 4.3vw}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:28px 0 22px;border-bottom:1px solid #d69c6738}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;font-size:25px;font-weight:800;letter-spacing:.04em}
+.brand img{object-fit:contain}.brand b{color:#ffc089}.brand small{display:block;font-size:10px;color:#c9ad92;letter-spacing:.16em;margin-top:2px}
+.tabs{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.tab{border:1px solid transparent;color:#e8cfb9;background:transparent;padding:12px 14px;border-radius:9px;font-size:14px;font-weight:700}
+.tab.active,.tab:hover,.tab:focus{background:#ebba89;color:#2b1b12;border-color:#e9c59e}
+.hero{min-height:355px;padding:60px 3% 54px;background:radial-gradient(ellipse at 82% 55%,#b7784133,transparent 48%);position:relative}
+.hero:after{content:"";position:absolute;right:8%;top:11%;width:min(18vw,210px);height:min(18vw,210px);border:2px solid #e3a56d55;border-radius:50%;box-shadow:0 0 0 35px #e3a56d0c,0 0 0 70px #e3a56d08;pointer-events:none}
+.eyebrow{color:#e2ad78;letter-spacing:.18em;font-weight:800;font-size:11px}
+h1{font-size:clamp(38px,5.5vw,77px);line-height:1.07;letter-spacing:-.05em;margin:18px 0}h1 em{font-style:normal;color:#f5b980}
+.hero p{color:#e0cbb9;max-width:730px;line-height:1.55;font-size:17px}
+.status{display:inline-flex;align-items:center;gap:9px;border:1px solid #986846;border-radius:28px;background:#32241b;padding:10px 14px;color:#ecc89f;font-size:11px;letter-spacing:.035em;font-weight:750}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#f5ba80}
+.content{padding-bottom:60px}.section-bar{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:0 0 24px}
+h2{font-size:28px;margin:6px 0 0;letter-spacing:-.025em}
+.search{display:flex;align-items:center;gap:11px;color:#cab197;font-size:13px}
+.search input{background:#2c231b;border:1px solid #926743;color:#fff7ed;border-radius:10px;padding:11px 13px;width:245px}
+.catalog{display:flex;gap:18px;flex-wrap:nowrap;overflow-x:auto;padding:6px 5px 16px;scroll-snap-type:x proximity}.media-card{flex-shrink:0;scroll-snap-align:start}
+.media-card{display:flex;text-align:left;flex-direction:column;min-height:260px;width:calc(25% - 14px);min-width:205px;border:1px solid #78513b;background:linear-gradient(160deg,#433023,#241d18);color:#fff1dd;border-radius:16px;overflow:hidden;padding:0;transition:transform .2s,border-color .2s}
+.media-card:hover,.media-card:focus{border-color:#f6ca99;transform:translateY(-4px)}
+.poster{height:167px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 47% 55%,#df986552,#30241d 65%);font-size:60px;color:#e6ad76;position:relative}
+.poster:after{content:"";border:2px solid #edbb8752;width:100px;height:100px;border-radius:50%;position:absolute;transform:rotate(-25deg) scaleX(1.6)}
+.poster>span{position:relative;z-index:1}
+.card-info{padding:17px;display:flex;flex-direction:column;gap:6px}
+.card-type{font-size:10px;letter-spacing:.14em;color:#e4af78;text-transform:uppercase;font-weight:800}
+.card-info strong{font-size:18px;line-height:1.25}.card-info small{color:#bfa896;font-size:12px}
+.disclaimer{font-size:12px;color:#ac9886;line-height:1.65;margin-top:22px}
+.empty{width:100%;border:1px dashed #987153;border-radius:14px;padding:35px 20px;color:#d4bea9;text-align:center;line-height:1.6}
+footer{border-top:1px solid #79503755;padding:25px 0 35px;display:flex;justify-content:space-between;gap:12px;color:#b9a391;font-size:12px}
+.overlay[hidden]{display:none!important}.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#080705ec;z-index:30;padding:24px}
+.modal-card,.player-panel{position:relative;width:min(95vw,700px);background:linear-gradient(140deg,#453021,#251d18);border:1px solid #ab7952;border-radius:18px;padding:38px;box-shadow:0 22px 80px #0009}
+.modal-card h2{font-size:clamp(27px,4vw,42px);margin:15px 0}.modal-card p{color:#dfc9b5;line-height:1.65}
+.close{position:absolute;right:15px;top:15px;border:1px solid #947051;color:#f5c89e;background:#2b211b;border-radius:9px;padding:10px 13px}
+.primary{border:0;border-radius:8px;background:#e4ac76;color:#27180f;padding:14px 17px;font-weight:800}
+.primary:disabled{opacity:.5;cursor:not-allowed}
+.rights{font-size:12px}
+.player-panel{width:min(95vw,1100px);padding-top:65px}.player-panel video{width:100%;max-height:65vh;background:#050505}
+@media(max-width:1040px){.topbar{align-items:start;flex-direction:column}.media-card{width:calc(33.33% - 12px)}}
+@media(max-width:750px){.media-card{width:calc(50% - 9px)}.section-bar{align-items:start;flex-direction:column}.search input{width:min(70vw,400px)}.hero{min-height:300px}.hero:after{opacity:.35}.tabs{width:100%;overflow-x:auto;flex-wrap:nowrap}.tab{white-space:nowrap}}
+@media(max-width:520px){.shell{padding:0 16px}.media-card{width:100%;min-width:0}.poster{height:155px}footer{flex-direction:column}.hero{padding:43px 0 32px}.hero p{font-size:15px}.modal-card{padding:36px 22px}}
+@media(prefers-reduced-motion:reduce){.media-card{transition:none}.media-card:hover,.media-card:focus{transform:none}}
+
+/* Extensiones originales de Cactus TV 0.2.0 */
+.catalog-state{font-size:12px;color:#e0b185;padding:5px 0 15px;margin:0}
+.media-card .poster img{height:100%;width:100%;object-fit:cover;position:relative;z-index:1}
+.media-card .poster:after{pointer-events:none}
+.credits-button{border:1px solid #88613f;color:#edc7a0;background:#35251b;border-radius:9px;padding:8px 13px}
+.credits-dialog{background:#292018;color:#ffefd9;border:1px solid #bb875d;border-radius:16px;padding:30px;max-width:650px;box-shadow:0 25px 80px #000a}
+.credits-dialog::backdrop{background:#000b}
+.credits-dialog p{line-height:1.7;color:#e8d0b8}
+.credits-dialog a{color:#ffcea1}
+
+button:focus,input:focus,a:focus{outline:3px solid #ffd39b;outline-offset:3px}h1{font-size:64px;font-size:clamp(38px,5.5vw,77px)}.modal-card{width:95vw;max-width:700px;max-height:90vh;overflow-y:auto}.credits-dialog:not([open]){display:none}.credits-dialog[open]{position:fixed;top:10%;left:5%;width:90%;max-height:80vh;overflow:auto;z-index:50}.search{min-width:0}.search input{max-width:100%}a{color:#ffd39b}
+
+.pagination[hidden]{display:none!important}.pagination{display:flex;align-items:center;margin:20px 0;justify-content:center}.pagination>*{margin:0 10px}
+
+.profile-button{display:flex;align-items:center;color:#fff1dd;background:#30231b;border:1px solid #956748;border-radius:12px;padding:8px 12px;flex-shrink:0}.profile-button>*{margin:0 5px}.profile-mini{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;font-weight:bold;color:white}.profiles-overlay{background:#100e0bf5;z-index:60}.profiles-card{width:95vw;max-width:1040px;max-height:92vh;overflow:auto;padding:45px 35px;border:1px solid #976646;border-radius:20px;background:linear-gradient(140deg,#36271e,#191613);text-align:center}.profiles-card h2{font-size:46px;margin:14px 0}.profiles-card>p{color:#d4bba4;line-height:1.6}.profile-cards{display:flex;flex-wrap:wrap;justify-content:center;margin:35px 0 22px}.profile-choice{background:transparent;border:2px solid transparent;color:#ebd3bf;border-radius:15px;padding:12px;margin:8px;min-width:125px}.profile-choice[aria-pressed=true]{border-color:#c58a58}.profile-choice strong{display:block;margin-top:14px;max-width:140px;overflow-wrap:break-word}.profile-avatar{display:flex;width:105px;height:105px;border-radius:19px;align-items:center;justify-content:center;font-size:46px;font-weight:bold;color:white;box-shadow:inset 0 -25px 35px #0003}.profile-choice:hover,.profile-choice:focus{color:white;border-color:#ffd39b}.profile-actions{display:flex;flex-wrap:wrap;justify-content:center}.profile-actions button{margin:7px}.secondary{background:#30251d;border:1px solid #9b7455;border-radius:8px;color:#ffe4c8;padding:13px 17px;font-weight:bold}.secondary:disabled{opacity:.45;cursor:default}#profile-form,#profile-confirm{margin:25px auto 0;padding:22px;max-width:620px;border:1px solid #76543e;border-radius:12px}#profile-form[hidden],#profile-confirm[hidden]{display:none}#profile-form label{display:block;margin-bottom:10px}#profile-name{display:block;width:100%;background:#211b16;color:#fff1dd;border:1px solid #a77b55;border-radius:8px;padding:13px;margin:0 0 15px}#profile-form button,#profile-confirm button{margin:5px}.profile-message{min-height:22px;color:#f3c89c!important}@media(max-width:520px){.profiles-card{padding:25px 12px}.profiles-card h2{font-size:30px}.profile-avatar{width:80px;height:80px;font-size:36px}.profile-choice{min-width:100px;padding:8px}.profile-choice strong{max-width:110px}.profile-button{max-width:100%}}
+
+.continue-section[hidden]{display:none}.continue-section{margin:8px 0 30px}.continue-section h2{font-size:23px;margin-bottom:15px}.continue-card{display:flex;flex-direction:column;flex-shrink:0;width:260px;background:linear-gradient(140deg,#5c3b28,#2e231a);color:#fff0dd;border:1px solid #956849;border-radius:13px;padding:22px;text-align:left}.continue-card small{color:#ddc1a6;margin:12px 0}.continue-card progress{width:100%;height:5px;accent-color:#f2b77d}.playback-toolbar{padding:14px 0 0}.playback-topline{display:flex;align-items:center;justify-content:space-between}.playback-buttons{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:8px}.playback-buttons>*{margin:5px}.playback-buttons label{color:#f2cfaf;font-size:13px}.playback-buttons [hidden],#vod-controls[hidden]{display:none!important}#playback-progress{width:100%;accent-color:#eeb579;margin:18px 0 5px}#playback-time{font-size:14px;color:#efc59d}.playback-toolbar select{background:#211a15;color:#ffead5;border:1px solid #a07a57;padding:9px;border-radius:7px;max-width:200px}.tracks-note{color:#bda48e;font-size:11px;margin:12px 0 0}.tracks-note[hidden]{display:none}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.player-panel{max-height:96vh;overflow-y:auto}.player-panel video{max-height:58vh}.profiles-card .profile-actions{margin-top:15px}
+
+.icon-control{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;padding:12px;border:1px solid #8e6548;border-radius:14px;background:#2d231c;color:#f9d7b5;cursor:pointer}.icon-control svg{width:24px;height:24px;fill:currentColor}.icon-control:hover,.icon-control:focus{background:#5b3b28;color:#fff3e5;border-color:#f4c99f}.icon-control:disabled{opacity:.3;cursor:default}.play-control{width:54px;height:54px;border-radius:50%;background:#edb681;color:#24160e;border-color:#edb681}.play-control:hover,.play-control:focus{background:#ffd5ac;color:#24160e}.playback-topline{padding:0 7px}.playback-buttons{margin-top:10px}.playback-buttons .icon-control{margin:4px 8px}.playback-toolbar{border-top:1px solid #815d4055}.player-panel{border-radius:18px}
+
+.nav-icon{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-right:8px;vertical-align:-3px}.tab{border-radius:24px}.hero{min-height:240px;padding-top:38px;padding-bottom:32px}.hero h1{font-size:52px;font-size:clamp(32px,4.1vw,58px);margin:14px 0}.hero p{font-size:15px;max-width:600px}.hero:after{width:150px;height:150px;top:18%;right:10%}.media-card{width:210px;min-width:190px;min-height:330px;border-radius:12px}.poster{height:235px}.card-info strong{font-size:16px}.card-info{padding:15px}.player-panel{width:96vw;max-width:1600px;background:#0a0806;border-color:#6b4a33;padding:45px 30px 22px}.player-panel video{max-height:65vh}.playback-buttons .icon-control{margin:4px 10px}.playback-toolbar select:focus{outline:3px solid #ffd39b;outline-offset:3px}@media(max-width:520px){.hero{min-height:220px;padding-top:28px}.hero:after{width:95px;height:95px;right:5%;opacity:.2}.media-card{width:185px;min-width:180px}.poster{height:205px}.player-panel{padding:55px 12px 18px}.player-panel video{max-height:50vh}}
+
+.live-categories[hidden]{display:none}.live-categories{display:flex;flex-wrap:wrap;margin-bottom:20px}.live-categories button{margin:5px}.live-categories button[aria-pressed=true]{background:#e6b27e;color:#27180f;border-color:#ffd4a8}.primary[hidden]{display:none!important}
+
+.source-filters{display:flex;gap:24px;align-items:center;margin:14px 0 24px;flex-wrap:wrap}.source-filters[hidden]{display:none}.source-filters label{display:flex;align-items:center;gap:12px;color:var(--sand,#d9c4a1)}.source-filters select{min-width:220px;max-width:520px;padding:12px 18px;background:#231e1b;color:#f3e8d6;border:1px solid #8d7257;border-radius:10px;font:inherit}.source-filters select:focus{outline:3px solid #efc88c;outline-offset:4px}
+
+.source-filters [hidden]{display:none}
+
+/* Beta: cuadrícula legible con mando y área nativa de vídeo. */
+#catalog{flex-wrap:wrap;overflow:visible;scroll-snap-type:none;margin-left:-7px;margin-right:-7px;gap:0}#catalog .media-card{width:calc(16.666% - 14px);min-width:175px;margin:7px;min-height:310px}.media-card img{object-fit:cover}.hero{min-height:200px;padding:28px 3%}.hero h1{font-size:46px}.hero:after{width:125px;height:125px}.live-categories button[hidden]{display:none!important}#video-stage{position:relative;width:100%;min-height:300px}#native-video{display:block;width:100%;height:54vh;min-height:300px}#native-video[hidden],#video[hidden]{display:none!important}.player-panel #video{display:block;max-height:54vh;width:100%}.player-panel #video[hidden]{display:none}select:focus{outline:3px solid #ffd39b;outline-offset:3px}.playback-toolbar{position:relative;z-index:2}.player-panel .close{z-index:3}@media(max-width:1250px){#catalog .media-card{width:calc(20% - 14px)}}@media(max-width:1000px){#catalog .media-card{width:calc(25% - 14px);min-width:155px}}@media(max-width:700px){#catalog .media-card{width:calc(50% - 14px);min-width:130px}.hero h1{font-size:36px}#video-stage,#native-video{min-height:180px}}
+
+/* AVPlay dibuja en una capa nativa: el área que la cubre debe ser transparente. */
+html.native-playing,html.native-playing body{background:transparent!important}body.is-playing>.shell{visibility:hidden}body.is-playing #player{background:transparent;padding:0}body.is-playing .player-panel{position:fixed;left:0;top:0;width:100%;max-width:none;height:100%;max-height:none;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden}body.is-playing #video-stage{position:fixed;left:0;top:0;width:100vw;height:100vh;min-height:0;background:transparent}body.is-playing #native-video,body.is-playing #video{position:absolute;left:0;top:0;width:100%;height:100%;max-height:none;min-height:0;background:transparent;object-fit:contain}body.is-playing .playback-toolbar{position:absolute;left:0;right:0;bottom:0;padding:65px 5vw 20px;background:linear-gradient(transparent,rgba(0,0,0,.9) 35%);border:0;z-index:3}body.is-playing #player-title{position:absolute;left:35px;top:25px;margin:0;color:white;font-size:22px;text-shadow:0 2px 8px black;z-index:4}body.is-playing #player-status{position:absolute;left:35px;top:55px;color:#f1d6b8;text-shadow:0 2px 7px black;z-index:4}body.is-playing #close-player{top:24px;right:30px;z-index:5}.external-subtitles{position:absolute;left:8%;right:8%;bottom:230px;text-align:center;white-space:pre-line;color:#fff;font-size:32px;line-height:1.3;font-weight:600;text-shadow:2px 2px 4px #000,-2px -2px 4px #000;background:rgba(0,0,0,.35);padding:5px 10px;z-index:4;pointer-events:none}.external-subtitles[hidden]{display:none!important}
+body.is-playing .playback-toolbar,body.is-playing #player-title,body.is-playing #player-status,body.is-playing #close-player{transition:opacity .2s}body.is-playing.controls-hidden .playback-toolbar,body.is-playing.controls-hidden #player-title,body.is-playing.controls-hidden #player-status,body.is-playing.controls-hidden #close-player{opacity:0;visibility:hidden;pointer-events:none}body.is-playing.controls-hidden .external-subtitles{bottom:65px}
+
+/* Navegación de TV: encabezado compacto, categorías por OK y carátulas visibles. */
+.topbar{padding:18px 0 15px;min-height:80px}.brand{font-size:23px}.brand img{width:38px;height:38px}.brand small{font-size:9px}.tab{font-size:15px;padding:11px 13px}.hero[hidden]{display:none!important}.content{padding-top:22px}.section-bar{margin-bottom:12px;align-items:center}.section-bar h2{font-size:29px}.section-bar .eyebrow{display:none}.search input{width:320px;font-size:16px;padding:12px 16px}.catalog-state{font-size:12px;margin:0;padding:0 0 8px}.source-filters{margin:4px 0 15px;gap:0}.source-filters>div{margin-right:15px}.source-filters select[hidden]{display:none!important}.filter-toggle{background:#2a221b;border:1px solid #806044;color:#f5dfc6;border-radius:22px;padding:10px 20px;min-width:145px;font-weight:600;font-size:16px}.filter-toggle:hover,.filter-toggle:focus{background:#5b3d28;border-color:#ffd29c}.source-picker-card{position:relative;width:90vw;max-width:1200px;max-height:85vh;overflow-y:auto;background:#241d17;border:1px solid #916a49;border-radius:18px;padding:35px}.source-picker-options{display:flex;flex-wrap:wrap;margin:22px -6px 0}.category-choice{width:calc(25% - 12px);min-height:58px;margin:6px;border:1px solid #72543e;background:#34271d;color:#f7e2c9;border-radius:10px;padding:14px;font-size:16px;text-align:left}.category-choice[aria-pressed=true]{background:#e7b47e;color:#24170d;border-color:#f8d1a6}.category-choice:hover,.category-choice:focus{border-color:#ffe0b7;box-shadow:0 0 0 2px #ffe0b7}.category-choice:disabled{opacity:.35;cursor:default}.continue-section{margin:3px 0 20px}.continue-section h2{font-size:23px;margin:0 0 10px}.continue-card{width:280px;padding:0;border-radius:12px;overflow:hidden;position:relative}.continue-art{height:135px;display:block;position:relative;background:#3a291e}.continue-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 35%}.continue-play{position:absolute;left:15px;bottom:12px;border-radius:50%;width:33px;height:33px;padding-top:7px;text-align:center;background:#111b;color:white;font-size:15px}.continue-info{display:block;padding:11px 14px 10px}.continue-info strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px}.continue-info small{display:block;margin:5px 0 0;color:#d9bda3;font-size:12px}.continue-card progress{display:block;width:100%;height:4px;border:0;margin:0}.continue-card:hover,.continue-card:focus{border-color:#ffd5a6}.disclaimer{display:none}.card-type{font-size:9px;letter-spacing:.06em}.card-info strong{min-height:38px;max-height:42px;overflow:hidden}.live-categories{margin-bottom:10px}.live-categories button{border-radius:22px;font-size:15px;padding:10px 18px}
+.hero-reel{position:relative;overflow:hidden;height:235px;min-height:235px;margin:20px 0 0;padding:22px 30px;border:1px solid #775238;border-radius:16px;background:#2d2118}.hero-reel:after{display:none}.reel-image{position:absolute;right:0;top:0;height:100%;width:48%;object-fit:cover;object-position:center 30%;opacity:.9}.reel-shade{position:absolute;inset:0;background:linear-gradient(90deg,#261d16 35%,rgba(38,29,22,.8) 60%,rgba(38,29,22,.05))}.reel-copy{position:relative;z-index:1;max-width:75%;height:100%;display:flex;flex-direction:column;justify-content:center}.hero-reel h1{font-size:34px;line-height:1.12;letter-spacing:-.025em;margin:10px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:85%}.hero-reel p{margin:0 0 13px;color:#e8ceb2;font-size:15px}#reel-description{display:none}.reel-actions{display:flex;gap:12px}.reel-actions button{margin-right:10px;font-size:15px;padding:12px 18px}.reel-navigation{position:absolute;right:22px;bottom:19px;z-index:2;display:flex;align-items:center;color:white}.reel-navigation>*{margin-left:10px}.reel-navigation .icon-control{width:36px;height:36px;padding:0;font-size:26px;border-radius:50%;background:#17110ba8}.reel-navigation span{font-size:12px;text-shadow:0 1px 4px black}@media(max-width:800px){.topbar{padding:14px 0;min-height:0}.content{padding-top:15px}.source-picker-card{padding:25px 15px}.category-choice{width:calc(50% - 12px);font-size:14px}.hero-reel{height:220px;min-height:220px;padding:20px}.hero-reel h1{font-size:27px;max-width:95%}.reel-copy{max-width:88%}.reel-image{width:55%}.reel-navigation{right:14px;bottom:14px}.reel-actions button{padding:11px;font-size:13px}.search input{width:230px}}
+.tmdb-credit-logo{display:block;width:100px;height:auto;margin:18px 0}.credit-license{font-size:11px}
+
+/* Referencia Cactus: fondo integrado y foco luminoso, sin rectángulos externos. */
+html{background:#100e0b}body{background:radial-gradient(circle at 65% -15%,#382519 0,#17120f 38%,#0d0b09 82%)}.topbar{position:sticky;top:0;z-index:12;background:linear-gradient(100deg,#21170f,#110e0c 80%)}.tab{position:relative;color:#dbcbb7;border-radius:28px;border:1px solid transparent;background:transparent}.tab.active{color:#ffe2ac;background:#302416;border-color:#bd935a}.tab.active:before{content:"";position:absolute;left:-2px;top:13px;bottom:13px;width:4px;background:#ffe5b5;border-radius:5px}.tab:hover,.tab:focus{outline:none!important;color:#ffe9bc;background:#3a2a19;border-color:#e6bc79;box-shadow:0 0 22px rgba(232,183,111,.38),inset 0 0 12px rgba(232,183,111,.08)}.media-card:focus,.continue-card:focus,.filter-toggle:focus,.category-choice:focus,.icon-control:focus,.primary:focus,.secondary:focus,.profile-button:focus{outline:none!important;border-color:#f5cb8d;box-shadow:0 0 0 1px #f4c98e,0 0 22px rgba(228,178,104,.35)}
+.hero-reel{width:100vw;left:50%;margin-left:-50vw;margin-top:0;height:350px;min-height:350px;border:0;border-radius:0;padding:36px max(7vw,40px);background:#100e0b}.reel-image{width:100%;height:100%;object-fit:cover;object-position:65% 35%;opacity:1}.reel-shade{background:linear-gradient(90deg,rgba(13,11,9,.97) 5%,rgba(13,11,9,.78) 35%,rgba(13,11,9,.2) 75%),linear-gradient(0deg,#100e0b,transparent 30%)}.reel-copy{max-width:850px}.hero-reel h1{font-size:39px;max-width:100%;white-space:normal;max-height:90px}.hero-reel #reel-description{display:block;max-width:800px;line-height:1.5;font-size:16px;max-height:48px;overflow:hidden}.reel-navigation{right:6vw;bottom:28px}.hero-reel .primary,.hero-reel .secondary{border-radius:28px;padding:14px 24px}.hero-reel .primary{background:#f3d29a;color:#1b130b}
+
+/* TV en vivo: categorías, vídeo y canales tienen recorridos separados. */
+.live-layout[hidden],#catalog[hidden]{display:none!important}.live-layout{display:flex;height:calc(100vh - 215px);min-height:500px;margin-top:10px}.live-category-panel{width:200px;flex:0 0 200px;display:flex;flex-direction:column;background:#1c1611;border:1px solid #57412e;border-radius:14px;padding:15px 10px}.live-category-panel h3{margin:0 10px 16px;font-size:19px}.live-category-list,.live-channel-list{position:relative;overflow-y:auto;flex:1;min-height:0;scroll-behavior:auto}.live-category-choice{display:block;width:100%;text-align:left;padding:13px 14px;margin-bottom:6px;color:#dcc7ac;background:transparent;border:1px solid transparent;border-radius:10px;font-size:15px}.live-category-choice[aria-pressed=true]{background:#614328;color:#ffe4b7;border-color:#b98b52}.live-category-choice:focus,.live-category-choice:hover{outline:none;border-color:#edc17a;background:#3f2d1d;box-shadow:inset 0 0 14px #b27d2833,0 0 12px #be87352b}.live-center{flex:1;min-width:0;margin:0 18px;padding-top:10px;background:transparent}.live-preview-mount{position:relative;width:100%;height:52vh;max-height:600px;min-height:280px;background:transparent;overflow:hidden;border-radius:8px}
+.live-preview-mount{position:relative;display:block}
+.live-preview-viewport{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:92%;height:92%;max-width:100%;max-height:100%;aspect-ratio:16/9;background:transparent;border-radius:8px;pointer-events:none}
+@supports not (aspect-ratio:16/9){.live-preview-viewport{width:92%;height:88%}}
+.live-preview-placeholder{position:absolute;left:0;top:0;right:0;bottom:0;z-index:2;background:#0b0b0d;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#bfa68b}.live-preview-placeholder[hidden]{display:none!important}.live-preview-placeholder span{font-size:30px;letter-spacing:.1em;color:#edb875}.live-preview-placeholder p{font-size:14px}.live-preview-info{display:flex;align-items:center;justify-content:space-between;padding:17px 10px;background:#17120e}.live-preview-info h3{font-size:22px;margin:7px 0}.live-preview-info p{font-size:13px;color:#c9ad8c;margin:5px 0}.live-preview-info .eyebrow{font-size:10px}.live-remote-hint{font-size:12px;color:#ad9174;padding:0 10px}.live-channel-panel{width:285px;flex:0 0 285px;display:flex;flex-direction:column;padding:15px 10px;background:#1b1510;border:1px solid #57412e;border-radius:14px}.live-channel-heading{display:flex;justify-content:space-between;align-items:center;margin:0 8px 13px}.live-channel-heading h3{font-size:18px;margin:0;max-width:85%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.live-channel-heading span{font-size:12px;color:#d0aa79}.live-channel-choice{display:flex;align-items:center;text-align:left;width:100%;min-height:57px;padding:11px 10px;border:1px solid transparent;border-radius:10px;margin:0 0 5px;background:transparent;color:#e3d0b9}.live-channel-choice strong{font-size:15px;line-height:1.3;flex:1}.live-channel-number{font-size:11px;color:#b49169;margin-right:10px;min-width:20px}.live-on-air{font-size:8px;color:#8fcc8a;margin-left:7px}.live-channel-choice[aria-pressed=true]{background:#67482c;border-color:#b78c55;color:#ffe4b9}.live-channel-choice:focus,.live-channel-choice:hover{outline:none;border-color:#f1c17e;box-shadow:inset 0 0 16px #bf86452b,0 0 12px #cf8d3522}.live-preview-playing:not(.is-playing) #live-preview-mount #video-stage{position:absolute;left:0;top:0;width:100%;height:100%;min-height:0;background:transparent}.live-preview-playing:not(.is-playing) #live-preview-mount #video,.live-preview-playing:not(.is-playing) #live-preview-mount #native-video{position:absolute;left:0;top:0;width:100%;height:100%;max-height:none;min-height:0;background:transparent}.live-preview-playing:not(.is-playing) .content{padding-bottom:0}.live-preview-playing:not(.is-playing) .topbar,.live-preview-playing:not(.is-playing) .section-bar{background:#17120e}.live-preview-playing:not(.is-playing) footer{display:none}@media(max-width:1100px){.live-category-panel{width:170px;flex-basis:170px}.live-channel-panel{width:225px;flex-basis:225px}.live-center{margin:0 10px}.live-preview-info{align-items:flex-start;flex-direction:column}.live-preview-info h3{font-size:18px}.hero-reel{padding:30px 5vw}.hero-reel h1{font-size:31px}}@media(max-width:750px){.live-layout{height:auto;min-height:0;flex-wrap:wrap}.live-category-panel{width:100%;flex-basis:100%;max-height:180px;margin-bottom:12px}.live-category-list{display:flex;overflow-x:auto;overflow-y:hidden}.live-category-choice{width:auto;flex-shrink:0;white-space:nowrap;margin:0 5px}.live-center{flex-basis:100%;margin:0}.live-preview-mount{height:50vw;min-height:180px}.live-channel-panel{width:100%;flex-basis:100%;height:350px}.hero-reel{height:330px;min-height:330px}.hero-reel h1{font-size:28px}}
+
+.header-icon{width:40px;height:40px;flex-shrink:0;border:1px solid transparent;border-radius:50%;background:transparent;color:#e6d6bf;padding:8px}.header-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.header-icon:focus,.header-icon:hover{outline:none!important;color:#ffe2ab;border-color:#c99b5c;box-shadow:0 0 20px #dbab6d55;background:#382818}.settings-panel[hidden],.settings-choice[hidden]{display:none!important}.settings-panel{position:fixed;left:0;top:0;right:0;bottom:0;background:linear-gradient(135deg,#21170f,#100d0a);color:#f3e7d8;z-index:80;padding:35px 6vw;overflow-y:auto}.settings-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.settings-header h2{font-size:32px;margin-top:8px}.settings-layout{display:flex;min-height:70vh}.settings-tabs{width:245px;flex:0 0 245px;margin-right:45px}.settings-tabs button{display:block;width:100%;background:transparent;border:1px solid transparent;color:#d9c3aa;border-radius:12px;text-align:left;padding:17px 20px;margin-bottom:10px;font-size:18px}.settings-tabs button[aria-pressed=true]{background:#533820;color:#ffdeb0;border-color:#b28651}.settings-tabs button:focus,.settings-tabs button:hover{outline:none;border-color:#f0c98c;box-shadow:0 0 22px #b9894244}.settings-content{flex:1;min-width:0;max-width:1100px}.settings-field{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:68px;text-align:left;border:1px solid transparent;border-bottom-color:#674a323d;border-radius:10px;background:transparent;color:#e7d8c5;padding:16px 18px;margin-bottom:5px;font-size:18px}.settings-field strong{font-size:16px;font-weight:500;background:#392a1e;padding:12px 18px;border:1px solid #705035;border-radius:9px;color:#f6e4c9;min-width:165px;text-align:center;margin-left:18px}.settings-field:focus,.settings-field:hover{outline:none;border-color:#ac814d;background:#332418;box-shadow:0 0 20px #ae7b3430}.settings-subtitle-preview{display:flex;align-items:center;justify-content:center;min-height:170px;background:linear-gradient(110deg,#1d2630,#7b593d);border:1px solid #866344;border-radius:14px;margin-top:22px;padding:25px;text-align:center}.settings-subtitle-preview[hidden],#settings-privacy[hidden],#settings-about[hidden]{display:none}.settings-subtitle-preview span{padding:4px 10px;border-radius:4px}.settings-content h3{font-size:26px;margin:10px 0 20px}.settings-content p{font-size:17px;line-height:1.65;color:#cbb7a0}.settings-choice{position:fixed;inset:0;background:#080603da;display:flex;align-items:center;justify-content:center;z-index:90}.settings-choice>section{width:90%;max-width:700px;max-height:85vh;overflow:auto;background:#251b13;border:1px solid #a0794c;border-radius:17px;padding:30px}.settings-choice h3{font-size:25px;margin:0 0 20px}.settings-choice-option{display:block;width:100%;padding:16px 20px;margin-bottom:9px;border:1px solid #6f4f34;border-radius:10px;background:#35261a;color:#ead8bf;text-align:left;font-size:18px}.settings-choice-option[aria-pressed=true]{background:#bd8c55;color:#1e140b}.settings-choice-option:focus{outline:none;border-color:#f7d69e;box-shadow:0 0 16px #d09a4a55}.credits-dialog[open]{z-index:110}.source-picker-card{z-index:1}#source-picker{z-index:70}@media(max-width:800px){.settings-panel{padding:22px 4vw}.settings-tabs{width:170px;flex-basis:170px;margin-right:15px}.settings-tabs button{font-size:14px;padding:13px 10px}.settings-field{font-size:15px;padding:10px 5px}.settings-field strong{font-size:13px;min-width:120px;padding:10px}.settings-subtitle-preview{min-height:130px}.settings-layout{min-height:0}}
+
+/* Ancho explícito: el flex del botón no debe colapsar el arte antes de descargarlo. */
+.continue-art{width:100%;flex-shrink:0}.continue-info{width:100%}
+
+.continue-card progress{display:block;width:100%;height:5px;margin:0;border:0;border-radius:0;background:#493424;color:#efbe82;-webkit-appearance:none;appearance:none}.continue-card progress::-webkit-progress-bar{background:#493424;border-radius:0}.continue-card progress::-webkit-progress-value{background:linear-gradient(90deg,#bf804a,#f2c68d);border-radius:0}.continue-card progress::-moz-progress-bar{background:#efbe82}
+
+.brand img{width:46px;height:46px;filter:drop-shadow(0 2px 7px #e5a36125)}
+
+.shelf-loading .shelf-pending{min-height:260px;height:20vw;display:flex;align-items:center;color:#bca78c}
+
+/* Superficie persistente de vídeo. El fondo web deja libre el plano multimedia. */
+#video-stage[hidden]{display:none!important}html.tv-video-plane,html.tv-video-plane body{background:transparent!important}html.video-surface-active .shell{position:relative;z-index:1}#video-stage{position:fixed;left:0;top:0;min-height:0;z-index:0;background:#000!important;overflow:hidden}#video-stage #video,#video-stage #native-video{position:absolute;left:0;top:0;width:100%;height:100%;min-height:0;max-height:none;background:#000!important;object-fit:contain;opacity:1}html.tv-video-plane #video-stage,html.tv-video-plane #video-stage #video,html.tv-video-plane #video-stage #native-video{background:transparent!important}html.video-surface-active #video-stage{visibility:visible}
+
+/* La vista previa se compone por encima de la navegación; los diálogos conservan su prioridad. */
+body.live-preview-playing:not(.is-playing) #video-stage{z-index:2}
+
+/* Deportes siempre visible como categoría prioritaria de TV en vivo. */
+.live-category-choice.live-category-sports{border-color:rgba(225,163,95,.7);font-weight:700;background:rgba(181,107,54,.15)}
+.live-category-choice.live-category-sports[aria-pressed="true"]{border-color:#e3b27f;background:rgba(181,107,54,.35)}
+
+/* Diferenciar los canales inventariados sin reproducción. */
+.live-channel-no-source{opacity:.58}
+.live-no-source{font-size:.68rem;white-space:nowrap;color:#ccb6a2}
+
+/* Acceso protegido. Oculto por defecto; interfaz compatible con mando Samsung. */
+.cactus-pin-overlay[hidden]{display:none!important}.cactus-pin-overlay{position:fixed;inset:0;z-index:125;background:rgba(6,5,4,.94);display:flex;align-items:center;justify-content:center;color:#f9e7cc}
+.cactus-pin-card{width:90%;max-width:440px;background:#271a11;border:1px solid #aa804d;border-radius:18px;padding:28px;text-align:center;box-shadow:0 22px 90px #0009}
+.cactus-pin-card h2{margin:0 0 12px;font-size:26px}.cactus-pin-hint{color:#cfb394;font-size:15px;line-height:1.5;min-height:48px}
+.cactus-pin-entry{box-sizing:border-box;width:70%;max-width:280px;margin:8px auto;background:#1a120c;border:1px solid #6c4d30;color:#fbe7c4;border-radius:9px;padding:10px;text-align:center;font-size:20px;letter-spacing:8px}
+.cactus-pin-dots{font-size:25px;color:#edbe81;min-height:40px}.cactus-pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.cactus-pin-key,.cactus-pin-confirm{background:#3a291b;color:#fbe5c4;border:1px solid #8b643c;border-radius:12px;min-height:52px;font-size:18px}
+.cactus-pin-key:focus,.cactus-pin-confirm:focus{background:#c59358;color:#1d1008;outline:3px solid #ffdc9e}
+.cactus-pin-actions{margin-top:10px}.cactus-pin-confirm{width:100%}
+.cactus-private-status{color:#d9ba95;font-size:14px;margin:12px 0}.cactus-private-button{display:block;width:100%;max-width:670px;text-align:left;margin-bottom:10px;padding:15px 18px;border:1px solid #795436;border-radius:10px;background:#392719;color:#f5dfbf;font-size:17px}
+.cactus-private-button:focus{outline:2px solid #ffdc9e}
+
+/* Fuentes externas históricas, siempre bajo activación del usuario. */
+#cactus-web-source[hidden]{display:none!important}#cactus-web-source{position:fixed;inset:0;z-index:130;display:flex;flex-direction:column;background:#16110e;color:#f8dec1}
+.cactus-web-header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:15px 24px;background:#302116;border-bottom:1px solid #855a38;font-size:21px}
+.cactus-web-header button{border:1px solid #d2a070;border-radius:9px;background:#49311f;color:#fbe6cf;padding:11px 17px;font-size:18px}
+.cactus-web-header button:focus{outline:3px solid #f5ba78}.cactus-web-info{margin:5px 24px;font-size:14px;color:#cebaa6}
+#cactus-web-source iframe{flex:1;min-height:0;width:100%;border:none;background:#110e0b}
+.live-web-source{font-size:13px;color:#edc494}.live-channel-choice:focus .live-web-source{color:#2d1a10}
+
+/* Cactus Sports Feed adapter */
+.cactus-sport-import-button{width:calc(100% - 20px);margin:5px 10px 8px;padding:10px 8px;background:rgba(179,126,77,.18);color:#efd8b4;border:1px solid rgba(222,172,115,.5);border-radius:10px;font-weight:700;cursor:pointer;}
+.cactus-sport-import-button:focus{outline:3px solid #f5d28a;outline-offset:2px;}
+.cactus-sport-source-modal[hidden]{display:none!important;}
+.cactus-sport-source-modal{position:fixed;z-index:999999;inset:0;background:rgba(0,0,0,.89);display:flex;align-items:center;justify-content:center;}
+.cactus-sport-source-card{background:#271f1a;border:2px solid #d49b62;border-radius:16px;padding:28px;width:min(90vw,780px);color:#f3e4cc;font-size:21px;line-height:1.4;}
+.cactus-sport-source-card h2{font-size:32px;margin:0 0 12px;color:#f3cd9a;}
+.cactus-sport-source-card label{display:block;margin:14px 0 8px;font-weight:700;}
+.cactus-sport-source-card input{box-sizing:border-box;width:100%;font-size:23px;padding:14px;border:1px solid #ca955d;background:#140f0c;color:#fff;border-radius:8px;}
+.cactus-sport-source-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;}
+.cactus-sport-source-actions button{font-size:20px;padding:12px;border:1px solid #d29b69;background:#483023;color:#fff;border-radius:9px;}
+.cactus-sport-source-modal button:focus,.cactus-sport-source-modal input:focus{outline:3px solid #ffe2ab;}
+.cactus-sport-source-card small{font-size:15px;color:#e9cfa8;}
+
+/* v0.3.0: selector de rutas web WiwyXuper, navegación con mando */
+#cactus-web-source{background:#0f0b09;z-index:9995}
+.cactus-web-controls{display:flex;flex-direction:column;background:#211810;gap:4px;padding:8px 20px}
+.cactus-web-heading{font-size:22px;color:#f6d5aa}
+.cactus-web-info{margin:2px 0;color:#e8cfaf;font-size:15px}
+.cactus-web-choices{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.cactus-web-choice{background:#443023;color:#ffe1b3;border:1px solid #b98452;padding:10px 15px;border-radius:9px;font-size:20px;font-weight:600}
+.cactus-web-choice[aria-pressed="true"]{background:#b1763f;color:#130f0b;border-color:#ffe0af}
+.cactus-web-choice:focus,.cactus-web-exit:focus{outline:3px solid #ffe0af;outline-offset:2px}
+.cactus-web-status{font-size:14px;color:#ebcba5;margin:2px 0}
+#cactus-web-source iframe{pointer-events:none}
+
+
+/* Cactus TV 0.3.1: ergonomía para la distancia del sofá, sin alterar la paleta Desierto. */
+.topbar{gap:9px;min-height:90px;padding-top:15px;padding-bottom:15px}
+.brand{font-size:29px;gap:12px;line-height:1.05}
+.brand img{width:56px;height:56px}
+.brand small{font-size:11px;letter-spacing:.12em;margin-top:5px}
+.tabs{display:flex;align-items:center;gap:2px;flex-wrap:nowrap;min-width:0}
+.tab{font-size:19px;padding:14px 13px;min-height:57px;white-space:nowrap;line-height:1.2}
+.nav-icon{width:21px;height:21px;margin-right:7px;vertical-align:-4px}
+.header-icon{width:48px;height:48px;padding:10px}
+.profile-button{min-height:50px;padding:9px 12px;font-size:17px}
+.reel-actions{gap:16px}
+.reel-actions button,.hero-reel .primary,.hero-reel .secondary{min-height:60px;padding:15px 27px;font-size:21px;border-radius:30px;white-space:nowrap}
+.detail-actions button,.details-card #play,.details-card #favorite{min-height:59px;padding:15px 26px;font-size:20px;border-radius:25px}
+#live-expand{min-height:50px;padding:12px 20px;font-size:17px}
+/* Los seis apartados deben caber en equipos 720p y navegadores Tizen antiguos. */
+@media(max-width:1550px){.topbar{gap:6px}.brand{font-size:25px}.brand img{width:48px;height:48px}.brand small{font-size:9px}.tab{font-size:17px;padding:12px 10px;min-height:53px}.nav-icon{width:19px;height:19px;margin-right:5px}.header-icon{width:43px;height:43px}.profile-button{font-size:15px;padding:8px 9px}}
+@media(max-width:1160px){.topbar{flex-wrap:wrap;justify-content:space-between;gap:5px 9px}.tabs{order:5;width:100%;justify-content:center;flex-shrink:0}.brand{margin-right:auto}.tab{font-size:18px;padding:11px 14px}.topbar{min-height:0;padding-top:9px;padding-bottom:10px}.reel-actions button,.hero-reel .primary,.hero-reel .secondary{font-size:18px;min-height:53px;padding:12px 22px}.has-home-reel .hero-reel{margin-top:-115px;padding-top:135px}}
+@media(max-width:750px){.tab{font-size:15px;padding:10px 8px;min-height:43px}.nav-icon{width:16px;height:16px;margin-right:4px}.brand{font-size:23px}.brand img{width:42px;height:42px}.reel-actions button,.hero-reel .primary,.hero-reel .secondary{font-size:16px;padding:10px 13px}.detail-actions button,.details-card #play,.details-card #favorite{min-height:49px;font-size:17px;padding:10px 14px}}
+/* Selector de fuentes accesible por mando, botones diferenciados y legibles. */
+#cactus-web-source{z-index:9995}
+.cactus-web-header{min-height:65px}
+.cactus-web-controls{gap:7px;padding:12px 24px}
+.cactus-web-choice{min-height:50px;font-size:19px;padding:11px 20px}
+.cactus-web-actions{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin:4px 0}
+.cactus-web-actions button{min-height:50px;padding:12px 21px;border-radius:12px;font-size:17px;font-weight:700;border:1px solid #c59a6c;color:#ffe6be;background:#3a2b1c}
+.cactus-web-good{background:#3e4d32!important;border-color:#c5d0a6!important;color:#f6ffe4!important}
+.cactus-web-auto[aria-pressed="true"]{background:#956037;color:#fff2dc;border-color:#efc28d}
+.cactus-web-actions button:focus{outline:3px solid #ffdda2!important;outline-offset:2px}
+.cactus-web-status{font-size:15px;min-height:22px}
+@media(max-width:950px){.cactus-web-info{font-size:13px}.cactus-web-choice{font-size:16px;padding:8px 10px}.cactus-web-actions button{font-size:15px;padding:10px 12px}.cactus-web-controls{padding:8px 12px}}
+
+/* Cactus Samsung 0.3.2: controles de fuentes FIJOS en la ventana TV.
+   No depender de flex + inset, que Tizen antiguos pueden calcular fuera de pantalla. */
+#cactus-web-source:not([hidden]){
+  position:fixed!important;top:0!important;right:0!important;bottom:0!important;left:0!important;
+  width:100vw!important;height:100vh!important;max-width:100vw!important;max-height:100vh!important;
+  margin:0!important;padding:0!important;overflow:hidden!important;
+  display:block!important;visibility:visible!important;z-index:2147483000!important;
+  background:#0f0b09!important;
+}
+#cactus-web-source .cactus-web-header{
+  position:absolute!important;top:0!important;left:0!important;right:0!important;
+  height:64px!important;min-height:0!important;max-height:64px!important;
+  margin:0!important;padding:6px 22px!important;z-index:3!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  background:#302116!important;box-sizing:border-box!important;
+}
+#cactus-web-source .cactus-web-controls{
+  position:absolute!important;top:64px!important;left:0!important;right:0!important;
+  height:236px!important;min-height:0!important;max-height:236px!important;
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  gap:5px!important;margin:0!important;padding:9px 22px!important;
+  z-index:3!important;overflow-y:auto!important;overflow-x:hidden!important;
+  background:#211810!important;box-sizing:border-box!important;
+}
+#cactus-web-source .cactus-web-choices{
+  display:flex!important;flex-wrap:wrap!important;gap:9px!important;
+  margin:4px 0!important;min-height:48px!important;flex-shrink:0!important;
+}
+#cactus-web-source .cactus-web-choice{
+  min-height:48px!important;padding:8px 16px!important;font-size:19px!important;
+  border-radius:9px!important;white-space:nowrap!important;
+}
+#cactus-web-source .cactus-web-actions{
+  display:flex!important;flex-wrap:wrap!important;gap:10px!important;margin:2px 0!important;flex-shrink:0!important;
+}
+#cactus-web-source .cactus-web-actions button{
+  min-height:46px!important;font-size:17px!important;padding:8px 16px!important;
+}
+#cactus-web-source .cactus-web-info{
+  margin:0!important;font-size:15px!important;line-height:1.25!important;flex-shrink:0!important;
+}
+#cactus-web-source .cactus-web-status{
+  min-height:18px!important;margin:0!important;line-height:1.2!important;font-size:14px!important;
+}
+#cactus-web-source .cactus-web-frame{
+  display:block!important;position:absolute!important;top:300px!important;bottom:0!important;left:0!important;
+  width:100%!important;height:calc(100vh - 300px)!important;min-height:0!important;max-height:none!important;
+  margin:0!important;padding:0!important;border:0!important;z-index:1!important;
+}
+#cactus-web-source button:focus{
+  outline:4px solid #ffdf9a!important;outline-offset:2px!important;
+  box-shadow:0 0 20px rgba(255,209,125,.45)!important;
+}
+@media(max-height:750px){
+ #cactus-web-source .cactus-web-header{height:56px!important;max-height:56px!important}
+ #cactus-web-source .cactus-web-controls{top:56px!important;height:214px!important;max-height:214px!important;padding:6px 14px!important;gap:3px!important}
+ #cactus-web-source .cactus-web-frame{top:270px!important;height:calc(100vh - 270px)!important}
+ #cactus-web-source .cactus-web-choice{min-height:43px!important;padding:6px 12px!important}
+ #cactus-web-source .cactus-web-actions button{min-height:42px!important;padding:6px 11px!important}
+ #cactus-web-source .cactus-web-info{font-size:13px!important}
+}
+@media(max-width:850px){
+ #cactus-web-source .cactus-web-heading{font-size:18px!important}
+ #cactus-web-source .cactus-web-choice{font-size:16px!important;padding:6px 10px!important}
+ #cactus-web-source .cactus-web-actions button{font-size:15px!important}
+}
+
+/* Cactus TV 0.3.5: la vista previa no tapa las listas.
+   El rectángulo AVPlay/HTML5 coincide con #live-preview-mount; las columnas
+   se dibujan delante, y el centro permanece transparente para el vídeo. */
+body.live-preview-playing:not(.is-playing) #video-stage{
+  position:fixed!important;z-index:0!important;pointer-events:none!important;
+}
+body.live-preview-playing:not(.is-playing) .shell{position:relative;z-index:1}
+body.live-preview-playing:not(.is-playing) .live-center,
+body.live-preview-playing:not(.is-playing) .live-preview-mount{background:transparent}
+body.live-preview-playing:not(.is-playing) .live-category-panel,
+body.live-preview-playing:not(.is-playing) .live-channel-panel{position:relative;z-index:2}
+
+/* Buscador accesible por mando Samsung, con foco visible desde el sofá. */
+.section-bar .search input:focus{outline:3px solid #ffd39b!important;outline-offset:4px;box-shadow:0 0 0 2px #754522,0 0 20px rgba(244,177,100,.5);background:#3c2a1b}
+@media (min-width:801px){.section-bar .search input{min-height:48px}}
+
+/* AVPlay no se anida en #video-stage: el plano nativo comparte el mismo
+   rectángulo de pantalla que HTML5 y NO suma desplazamientos de contenedor. */
+body > #native-video{position:fixed!important;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;pointer-events:none!important;background:transparent!important;object-fit:contain!important;z-index:0!important}
+body > #native-video[hidden]{display:none!important}
+
+/* Cactus AVPlay: un solo sistema de posicionamiento (setDisplayRect).
+   No desplazar el <object> por segunda vez: debe quedarse en el origen
+   del plano nativo como en la implementación histórica 1.5.0. */
+body > #native-video{
+  position:fixed!important;
+  right:auto!important;bottom:auto!important;
+  margin:0!important;transform:none!important;
+  pointer-events:none!important;background:transparent!important;
+}
+
+/* El buscador se navega como botón: teclado solo con OK. */
+#search[hidden],#search-focus[hidden]{display:none!important}
+.search .search-activation{background:#2c231b;border:1px solid #926743;color:#fff7ed;border-radius:10px;padding:11px 13px;width:245px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:48px;font:inherit;font-size:14px}
+.search .search-activation:focus{outline:3px solid #ffd39b;outline-offset:3px;background:#422c1d;box-shadow:0 0 18px #dc985050}
+
+/* El objeto nativo y setDisplayRect deben representar el mismo cuadro. */
+body > #native-video[hidden]{display:none!important}
+body #live-adjust{font-size:13px;padding:10px 13px;margin-left:8px;white-space:nowrap}
+.live-preview-info{flex-wrap:wrap}
+#cactus-align-panel[hidden],#cactus-align-target[hidden]{display:none!important}
+#cactus-align-panel{position:fixed;left:14px;top:110px;width:370px;max-width:42vw;z-index:990;background:rgba(26,18,13,.96);border:2px solid #ffc887;border-radius:14px;color:#ffedcf;padding:19px;box-shadow:0 12px 42px #000a;font-size:16px;pointer-events:none}
+#cactus-align-panel strong{display:block;font-size:20px;margin-bottom:10px}
+#cactus-align-panel p{margin:6px 0;line-height:1.5}
+#cactus-align-value{font-size:14px;color:#ffdca7}
+#cactus-align-target{position:fixed;z-index:970;border:3px dashed #ffd37f;box-sizing:border-box;pointer-events:none}
+
+/* 0.4.2: no mostrar calibrador cuando el canal usa geometria automatica normal. */
+#live-adjust[hidden]{display:none!important}
+
+/* Cactus 0.4.4 — colecciones adicionales sin reducir la barra superior. */
+#cactus-more-panel[hidden]{display:none!important}
+#cactus-more-panel{position:fixed;inset:0;z-index:117;background:rgba(7,5,4,.78);display:flex;justify-content:flex-end;align-items:flex-start;padding:clamp(55px,9vh,110px) max(24px,5vw) 24px;color:#f6e2c7}
+.cactus-more-content{width:min(90vw,435px);max-height:82vh;overflow-y:auto;background:#251910;border:1px solid #c09561;border-radius:18px;padding:17px 18px;box-shadow:0 25px 70px #0009}
+.cactus-more-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:22px;margin-bottom:12px}
+#cactus-more-close{background:#442d1b;border:1px solid #a77b50;border-radius:10px;color:#f7e2c3;font-size:20px;min-width:46px;min-height:46px}
+.cactus-more-choice{display:block;text-align:left;width:100%;margin:6px 0;padding:15px 18px;background:#352318;color:#f6dfbc;border:1px solid #775336;border-radius:12px;font-size:21px;font-weight:700}
+.cactus-more-choice small{display:block;font-size:13px;color:#c7b09a;font-weight:400;margin-top:5px}
+.cactus-more-choice:focus,#cactus-more-close:focus{background:#c4945e;color:#241409;outline:3px solid #ffe0a6}
+.cactus-more-choice:focus small{color:#372718}
+.cactus-more-tab{white-space:nowrap}
+@media(max-height:730px){#cactus-more-panel{padding-top:36px}.cactus-more-choice{padding:11px 14px;font-size:18px}}
+/* Prioridad de la ventana del PIN ante otros paneles y el vídeo. */
+.cactus-pin-overlay{z-index:260!important;top:0!important;left:0!important;right:0!important;bottom:0!important}
+.cactus-pin-overlay .cactus-pin-card{max-height:95vh;overflow-y:auto}
+.cactus-pin-card .cactus-pin-key:focus,.cactus-pin-card .cactus-pin-confirm:focus{outline:4px solid #ffe4a9!important;outline-offset:2px}
+
+/* 0.4.5: pestaña Adultos sólo visible si control parental activado. */
+#cactus-adult-tab[hidden]{display:none!important}
+.cactus-adult-tab{white-space:nowrap}
+@media(max-width:1160px){.tabs{justify-content:flex-start;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}}
+
+/* Cactus 0.4.7: nunca dejar una carátula vacía al fallar el servidor de imágenes. */
+.poster .cactus-cover-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:14px;box-sizing:border-box;text-align:center;line-height:1.22;font-size:17px;font-weight:650;color:#e8c99a;background:linear-gradient(145deg,#483324,#1a1613);overflow-wrap:break-word;word-break:break-word;text-shadow:0 1px 3px #0008}
+.poster img{z-index:2}
+.poster.poster-unavailable .cactus-cover-fallback{display:flex}
+
+/* 0.4.8: older Samsung Chromium does not support CSS inset; explicitly size cover. */
+.poster .cactus-cover-fallback{top:0;right:0;bottom:0;left:0;width:100%;height:100%;min-width:100%;max-width:100%;font-size:13px;line-height:1.3;white-space:normal;word-wrap:break-word;word-break:normal;z-index:1;}
+.poster img{position:absolute!important;top:0;left:0;width:100%!important;height:100%!important;display:block!important;z-index:3;object-fit:cover;}
+.poster img[hidden]{display:none!important;}
+
+/* Diagnóstico local: el resultado es texto, nunca URLs con identificadores. */
+.cactus-images-debug{margin-top:24px;border-top:1px solid #73543c;padding-top:20px}
+.cactus-images-debug button{padding:12px 20px;border:1px solid #c09666;border-radius:10px;background:#443022;color:#fff1dc}
+.cactus-images-debug button:focus{outline:3px solid #ffd398;outline-offset:3px}
+.cactus-images-debug button:disabled{opacity:.7}
+#cactus-posters-report{display:block;white-space:pre-wrap;word-wrap:break-word;font:15px/1.6 Arial,Helvetica,sans-serif;color:#ffe2ba;background:#221914;border:1px solid #704c31;border-radius:10px;max-width:840px;padding:16px}
+.poster{width:100%;flex:0 0 auto;min-width:0}
+.poster .cactus-cover-fallback{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;min-width:0;max-width:100%;padding:14px;display:flex;align-items:center;justify-content:center;white-space:normal;word-wrap:break-word;overflow:hidden;text-align:center}

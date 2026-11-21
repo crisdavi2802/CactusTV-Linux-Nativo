@@ -1,0 +1,35 @@
+/* Proporción vertical idéntica en cuadrícula y carruseles; sin deformar imágenes.
+ El padding porcentual funciona también en Chromium antiguo sin aspect-ratio. */
+ .media-card .poster,.shelf-card .poster{position:relative;display:block;height:0!important;min-height:0!important;width:100%;padding:150% 0 0!important;flex:0 0 auto;box-sizing:content-box;overflow:hidden}
+ .media-card .poster img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:center}
+ .media-card{align-self:flex-start}
+ .media-card .card-info strong{display:block;height:48px;min-height:48px;max-height:48px;line-height:24px;overflow:hidden}
+ .shelf-card .card-info strong{font-size:17px}
+ .shelf-card .card-info small{margin-top:4px}
+ .media-card:focus,.continue-card:focus{transition:border-color .12s,box-shadow .12s;transform:none!important}
+ @media(prefers-reduced-motion:reduce){.media-card,.continue-card{transition:none!important}}
+
+
+
+/* Chromium de Tizen puede encoger el contenedor anónimo de button al ancho
+ * del título si sus hijos solo tienen ancho porcentual. Fijar también los
+ * hijos en píxeles, no únicamente el botón ni la proporción del póster. */
+#catalog .media-card,.shelf-card.media-card{display:block!important;flex:0 0 200px!important;width:200px!important;min-width:200px!important;max-width:200px!important;height:390px!important;min-height:390px!important;max-height:390px!important;padding:0!important;box-sizing:border-box;overflow:hidden}
+.media-card .poster,.shelf-card .poster{display:block!important;position:relative;width:198px!important;min-width:198px!important;max-width:198px!important;height:297px!important;min-height:297px!important;max-height:297px!important;padding:0!important;box-sizing:border-box;overflow:hidden;flex:none!important}
+.media-card .poster img{position:absolute!important;top:0;left:0;width:198px!important;min-width:198px!important;max-width:198px!important;height:297px!important;min-height:297px!important;max-height:297px!important;object-fit:cover;object-position:center}
+.media-card .card-info{display:flex!important;flex-direction:column;align-items:stretch;width:198px!important;min-width:198px!important;max-width:198px!important;height:90px!important;min-height:90px!important;max-height:90px!important;padding:10px 10px 8px!important;box-sizing:border-box;overflow:hidden;gap:3px}
+.media-card .card-type{display:none!important}
+.media-card .card-info strong{display:block!important;width:178px!important;min-width:178px!important;max-width:178px!important;height:44px!important;min-height:44px!important;max-height:44px!important;font-size:17px!important;line-height:22px!important;overflow:hidden;white-space:normal;overflow-wrap:break-word}
+.media-card .card-info small{display:block;font-size:12px;line-height:16px;height:16px;overflow:hidden;margin-top:3px!important}
+@media(max-width:1699px){
+ #catalog .media-card,.shelf-card.media-card{flex-basis:180px!important;width:180px!important;min-width:180px!important;max-width:180px!important;height:360px!important;min-height:360px!important;max-height:360px!important}
+ .media-card .poster,.shelf-card .poster,.media-card .poster img{width:178px!important;min-width:178px!important;max-width:178px!important;height:267px!important;min-height:267px!important;max-height:267px!important}
+ .media-card .card-info{width:178px!important;min-width:178px!important;max-width:178px!important}
+ .media-card .card-info strong{width:158px!important;min-width:158px!important;max-width:158px!important}
+}
+@media(max-width:1100px){
+ #catalog .media-card,.shelf-card.media-card{flex-basis:170px!important;width:170px!important;min-width:170px!important;max-width:170px!important;height:345px!important;min-height:345px!important;max-height:345px!important}
+ .media-card .poster,.shelf-card .poster,.media-card .poster img{width:168px!important;min-width:168px!important;max-width:168px!important;height:252px!important;min-height:252px!important;max-height:252px!important}
+ .media-card .card-info{width:168px!important;min-width:168px!important;max-width:168px!important}
+ .media-card .card-info strong{width:148px!important;min-width:148px!important;max-width:148px!important}
+}

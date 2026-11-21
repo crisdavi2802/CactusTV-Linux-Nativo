@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Cactus TV">
+<defs><linearGradient id="copper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0ae"/><stop offset=".44" stop-color="#eab477"/><stop offset="1" stop-color="#b97945"/></linearGradient><radialGradient id="night" cx=".3" cy=".18" r="1"><stop stop-color="#503523"/><stop offset="1" stop-color="#17120f"/></radialGradient></defs>
+<rect x="5" y="5" width="246" height="246" rx="61" fill="url(#night)" stroke="url(#copper)" stroke-width="3"/>
+<circle cx="128" cy="128" r="94" fill="none" stroke="url(#copper)" stroke-width="1.5" opacity=".34"/>
+<path d="M129 199V70M129 146H99c-17 0-27-11-27-28v-15M129 124h27c17 0 27-11 27-28V82" fill="none" stroke="#140e0b" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 3)"/>
+<path d="M129 199V70M129 146H99c-17 0-27-11-27-28v-15M129 124h27c17 0 27-11 27-28V82" fill="none" stroke="url(#copper)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108 203h42" stroke="url(#copper)" stroke-width="5" stroke-linecap="round"/>
+<path d="m192 48 2 7 7 2-7 2-2 7-2-7-7-2 7-2Z" fill="#ffe1af"/>
+</svg>
