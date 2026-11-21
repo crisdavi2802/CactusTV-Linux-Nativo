@@ -1,5 +1,5 @@
 #!/bin/bash
-# Compila los cuatro instaladores desde codigo/.
+# Compila los cinco instaladores desde codigo/.
 # Uso:
 #   scripts/compilar.sh
 #   CACTUS_ELECTRON_DIST=/ruta/a/electron/dist scripts/compilar.sh
@@ -17,7 +17,12 @@ if [ ! -d "$DIST" ]; then
   exit 1
 fi
 
-for target in AppImage deb rpm pacman; do
+for target in AppImage deb rpm pacman flatpak; do
   echo "=== $target ==="
-  node_modules/.bin/electron-builder --x64 -c.electronDist="$DIST" -c.linux.target="$target"
+  if [ "$target" = flatpak ]; then
+    mkdir -p "$ROOT/codigo/.flatpak-tmp"
+    TMPDIR="$ROOT/codigo/.flatpak-tmp" node_modules/.bin/electron-builder --x64 -c.electronDist="$DIST" -c.linux.target="$target"
+  else
+    node_modules/.bin/electron-builder --x64 -c.electronDist="$DIST" -c.linux.target="$target"
+  fi
 done

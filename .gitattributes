@@ -2,3 +2,4 @@ release/*.AppImage filter=lfs diff=lfs merge=lfs -text
 release/*.deb filter=lfs diff=lfs merge=lfs -text
 release/*.rpm filter=lfs diff=lfs merge=lfs -text
 release/*.pacman filter=lfs diff=lfs merge=lfs -text
+release/*.flatpak filter=lfs diff=lfs merge=lfs -text

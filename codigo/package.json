@@ -38,7 +38,7 @@
       "maintainer": "Cactus TV <soporte@cocotecnico.com>",
       "executableName": "cactus-tv",
       "icon": "build/icon.png",
-      "target": ["AppImage", "deb", "rpm", "pacman"],
+      "target": ["AppImage", "deb", "rpm", "pacman", "flatpak"],
       "synopsis": "Cactus TV para Linux",
       "description": "Cactus TV portable basada en las versiones de television.",
       "syncDesktopName": true
@@ -56,6 +56,21 @@
     },
     "pacman": {
       "depends": ["ffmpeg"]
+    },
+    "flatpak": {
+      "artifactName": "cactus-tv-${version}-${arch}.${ext}",
+      "runtimeVersion": "24.08",
+      "baseVersion": "24.08",
+      "finishArgs": [
+        "--socket=wayland",
+        "--socket=x11",
+        "--share=ipc",
+        "--device=dri",
+        "--socket=pulseaudio",
+        "--filesystem=home",
+        "--share=network",
+        "--talk-name=org.freedesktop.Notifications"
+      ]
     }
   },
   "devDependencies": {
